@@ -42,27 +42,27 @@ class UserController extends Controller
     {
         return view('tables.showPages.user-show', ['user' => $user]);
     }
-    
+
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view('pages.update.user-update',['user'=>$user, 'roles'=>$roles]);
+        return view('pages.update.user-update', ['user' => $user, 'roles' => $roles]);
     }
 
     public function update(Request $request, User $user)
-{
-    $request->validate([
-        'role_id' => 'required|array',
-    ]);
+    {
+        $request->validate([
+            'role_id' => 'required|array',
+        ]);
 
-    $user->roles()->sync($request->role_id);
+        $user->roles()->sync($request->role_id);
 
-    return redirect('/users')->with('warning', 'Ma\'lumot yangilandi!');
-}
+        return redirect('/users')->with('warning', 'Ma\'lumot yangilandi!');
+    }
 
     public function search(Request $request)
     {
-        $users = User::where('name','like','%'.$request->search.'%')->orderBy('id', 'asc')->paginate(2);
+        $users = User::where('name', 'like', '%' . $request->search . '%')->orderBy('id', 'asc')->paginate(2);
         return view('tables/users', ['users' => $users]);
 
     }

@@ -44,7 +44,9 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
-                    <a href="/posts/create" class="btn btn-primary">Create</a>
+                    @if (auth()->user()->hasPermission('posts.create'))
+                        <a href="/posts/create" class="btn btn-primary">Create</a>
+                    @endif
                     <div class="card mt-2">
 
                         <!-- /.card-header -->
@@ -83,17 +85,24 @@
 
                                             <td>
                                                 <div class="d-flex">
-                                                    <a href="/post-show/{{$model->id}}"
-                                                        class="btn btn-primary mx-2">Show</a>
+                                                    @if (auth()->user()->hasPermission('posts.show'))
+                                                        <a href="/post-show/{{$model->id}}"
+                                                            class="btn btn-primary mx-2">Show</a>
+                                                    @endif
+                                                    @if (auth()->user()->hasPermission('posts.update'))
 
-                                                    <a href="/post-update/{{$model->id}}"
-                                                        class="btn btn-warning mx-2">Update</a>
+                                                        <a href="/post-update/{{$model->id}}"
+                                                            class="btn btn-warning mx-2">Update</a>
+                                                    @endif
+                                                    @if (auth()->user()->hasPermission('posts.destroy'))
 
-                                                    <form action="/post/{{$model->id}}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">DELETE</button>
-                                                    </form>
+                                                        <form action="/post/{{$model->id}}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">DELETE</button>
+                                                        </form>
+                                                    @endif
+
                                                 </div>
                                             </td>
                                         </tr>

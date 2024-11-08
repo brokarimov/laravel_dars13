@@ -78,10 +78,13 @@
                                             <td>{{ $model->model }}</td>
 
                                             <td>
-                                                <div class="d-flex">
-                                                    <a href="/user-update/{{$model->id}}"
-                                                        class="btn btn-warning mx-2">Update</a>
-                                                </div>
+                                                @if (auth()->user()->hasPermission('cars.update'))
+
+                                                    <div class="d-flex">
+                                                        <a href="/car-update/{{$model->id}}"
+                                                            class="btn btn-warning mx-2">Update</a>
+                                                    </div>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

@@ -275,7 +275,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="/" class="brand-link">
+      <a href="/main" class="brand-link">
         <img src="{{ asset('css/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
           class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
@@ -311,52 +311,65 @@
 
             <li class="nav-header">EXAMPLES</li>
 
+            @if (auth()->user()->hasPermission('students.index'))
+        <li class="nav-item">
+          <a href="/students" class="nav-link">
+          <i class="nav-icon far fa-calendar-alt"></i>
+          <p>
+            Students
+            <span class="badge badge-info right"></span>
+          </p>
+          </a>
+        </li>
+      @endif
 
-            <li class="nav-item">
-              <a href="/students" class="nav-link">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                <p>
-                  Students
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/posts" class="nav-link">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                <p>
-                  Posts
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/cars" class="nav-link">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                <p>
-                  Cars
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/news" class="nav-link">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                <p>
-                  News
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/products" class="nav-link">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                <p>
-                  Products
-                  <span class="badge badge-info right"></span>
-                </p>
-              </a>
-            </li>
+            @if (auth()->user()->hasPermission('posts.index'))
+        <li class="nav-item">
+          <a href="/posts" class="nav-link">
+          <i class="nav-icon far fa-calendar-alt"></i>
+          <p>
+            Posts
+            <span class="badge badge-info right"></span>
+          </p>
+          </a>
+        </li>
+      @endif
+
+            @if (auth()->user()->hasPermission('cars.index'))
+        <li class="nav-item">
+          <a href="/cars" class="nav-link">
+          <i class="nav-icon far fa-calendar-alt"></i>
+          <p>
+            Cars
+            <span class="badge badge-info right"></span>
+          </p>
+          </a>
+        </li>
+      @endif
+
+            @if (auth()->user()->hasPermission('news.index'))
+        <li class="nav-item">
+          <a href="/news" class="nav-link">
+          <i class="nav-icon far fa-calendar-alt"></i>
+          <p>
+            News
+            <span class="badge badge-info right"></span>
+          </p>
+          </a>
+        </li>
+      @endif
+
+            @if (auth()->user()->hasPermission('products.index'))
+        <li class="nav-item">
+          <a href="/products" class="nav-link">
+          <i class="nav-icon far fa-calendar-alt"></i>
+          <p>
+            Products
+            <span class="badge badge-info right"></span>
+          </p>
+          </a>
+        </li>
+      @endif
 
             @foreach (auth()->user()->roles as $roles)
         @if ($roles->role == 'admin')

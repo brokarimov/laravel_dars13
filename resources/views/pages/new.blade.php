@@ -78,18 +78,25 @@
                                             <td>{{ $model->text }}</td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <a href="/student-show/{{$model->id}}"
-                                                        class="btn btn-primary mx-2">Show</a>
+                                                    @if (auth()->user()->hasPermission('news.show'))
 
+                                                        <a href="/new-show/{{$model->id}}" class="btn btn-primary mx-2">Show</a>
+                                                    @endif
 
-                                                    <a href="/student-update/{{$model->id}}"
-                                                        class="btn btn-warning mx-2">Update</a>
+                                                    @if (auth()->user()->hasPermission('news.update'))
 
-                                                    <form action="/student/{{$model->id}}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">DELETE</button>
-                                                    </form>
+                                                        <a href="/new-update/{{$model->id}}"
+                                                            class="btn btn-warning mx-2">Update</a>
+                                                    @endif
+
+                                                    @if (auth()->user()->hasPermission('news.destroy'))
+                                                        <form action="/news/{{$model->id}}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">DELETE</button>
+                                                        </form>
+                                                    @endif
+
                                                 </div>
                                             </td>
                                         </tr>

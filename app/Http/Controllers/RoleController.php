@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,7 +22,6 @@ class RoleController extends Controller
     {
 
         $data = $request->all();
-        // dd($data);
         $role->update($data);
 
         return redirect('/roles')->with('warning', 'Ma\'lumot yangilandi!');
@@ -36,7 +36,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        return view('pages.create.role-create', ['permissions' => $permissions]);
     }
 
     /**
@@ -44,7 +45,9 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        Role::create($data);
+        return redirect('/roles')->with('success', 'Ma\'lumot qo\'shildi!');
     }
 
     /**
@@ -60,7 +63,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        $permissions = Permission::all();
+        return view('pages.update.role-update', ['role' => $role, 'permissions' => $permissions]);
     }
 
     /**
@@ -68,7 +72,13 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $request->validate([
+            'permission_id' => 'required|array',
+        ]);
+
+        $role->permissions()->sync($request->permission_id);
+
+        return redirect('/roles')->with('warning', 'Ma\'lumot yangilandi!');
     }
 
     /**

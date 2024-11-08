@@ -43,7 +43,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
-                    <a href="/students/create" class="btn btn-primary">Create</a>
+                    <a href="/roles/create" class="btn btn-primary">Create</a>
                     <div class="card mt-2">
 
                         <!-- /.card-header -->
@@ -66,7 +66,7 @@
                                         <th>Id</th>
                                         <th>Role</th>
                                         <th>Status</th>
-                                        
+                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody id="">
@@ -75,7 +75,7 @@
                                             <td>{{ $model->id }}</td>
                                             <td>{{ $model->role }}</td>
                                             <td>
-                                            <form action="/active/{{$model->id}}" method="POST">
+                                                <form action="/active/{{$model->id}}" method="POST">
                                                     @csrf
 
                                                     @if ($model->is_active == 1)
@@ -86,6 +86,14 @@
                                                             Active</button>
                                                     @endif
                                                 </form>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <form action="/roles/{{$model->id}}/edit" method="GET">
+
+                                                        <button type="submit" class="btn btn-warning mx-2">Update</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

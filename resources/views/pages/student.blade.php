@@ -43,7 +43,9 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
-                    <a href="/students/create" class="btn btn-primary">Create</a>
+                    @if (auth()->user()->hasPermission('students.create'))
+                        <a href="/students/create" class="btn btn-primary">Create</a>
+                    @endif
                     <div class="card mt-2">
 
                         <!-- /.card-header -->
@@ -82,18 +84,24 @@
 
                                             <td>
                                                 <div class="d-flex">
-                                                    <a href="/student-show/{{$model->id}}"
-                                                        class="btn btn-primary mx-2">Show</a>
+                                                    @if (auth()->user()->hasPermission('students.show'))
 
+                                                        <a href="/student-show/{{$model->id}}"
+                                                            class="btn btn-primary mx-2">Show</a>
+                                                    @endif
 
-                                                    <a href="/student-update/{{$model->id}}"
-                                                        class="btn btn-warning mx-2">Update</a>
+                                                    @if (auth()->user()->hasPermission('students.update'))
+                                                        <a href="/student-update/{{$model->id}}"
+                                                            class="btn btn-warning mx-2">Update</a>
+                                                    @endif
 
-                                                    <form action="/student/{{$model->id}}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">DELETE</button>
-                                                    </form>
+                                                    @if (auth()->user()->hasPermission('students.destroy'))
+                                                        <form action="/student/{{$model->id}}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">DELETE</button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

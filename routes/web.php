@@ -11,30 +11,30 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPostController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['App\Http\Middleware\Check:admin'])->group(function () {
+Route::middleware(['App\Http\Middleware\Check'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
-    Route::post('/active/{role}', [RoleController::class, 'active']);
+    Route::post('/active/{role}', [RoleController::class, 'active'])->name('active');
 });
-Route::middleware(['App\Http\Middleware\Check:worker'])->group(function () {
+Route::middleware(['App\Http\Middleware\Check'])->group(function () {
     Route::resource('students', StudentController::class);
 });
 
-Route::middleware(['App\Http\Middleware\Check:direktor'])->group(function () {
+Route::middleware(['App\Http\Middleware\Check'])->group(function () {
     Route::resource('cars', CarController::class);
 });
 
-Route::middleware(['App\Http\Middleware\Check:buxgalter'])->group(function () {
+Route::middleware(['App\Http\Middleware\Check'])->group(function () {
     Route::resource('posts', PostController::class);
 
 });
 
-Route::middleware(['App\Http\Middleware\Check:hr'])->group(function () {
+Route::middleware(['App\Http\Middleware\Check'])->group(function () {
     Route::resource('news', NewsController::class);
 
 });
 
-Route::middleware(['App\Http\Middleware\Check:coder'])->group(function () {
+Route::middleware(['App\Http\Middleware\Check'])->group(function () {
     Route::resource('products', ProductController::class);
 
 });
